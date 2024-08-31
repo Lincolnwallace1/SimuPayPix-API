@@ -1,4 +1,4 @@
-import { HttpStatus } from '@nestjs/common';
+import { HttpStatus, Inject } from '@nestjs/common';
 import AppError from '@common/erros/AppError';
 
 import UserRepository from '@modules/user/repository/UserRepository';
@@ -10,7 +10,10 @@ interface IRequest {
 }
 
 class GetUserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    @Inject(UserRepository)
+    private userRepository: UserRepository,
+  ) {}
 
   public async execute({ id }: IRequest): Promise<IResponse> {
     const user = await this.userRepository.get({ id, enabled: true });
@@ -23,7 +26,12 @@ class GetUserService {
       });
     }
 
-    return user;
+    return {
+      id: user.id,
+      fullName: user.fullName,
+      email: user.email,
+      accountBalance: Number(user.accountBalance),
+    };
   }
 }
 

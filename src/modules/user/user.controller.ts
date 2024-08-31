@@ -8,8 +8,19 @@ import {
   Patch,
   HttpCode,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
+import AuthGuard from '@common/http/middlewares/AuthMiddleware/auth.guard';
+
+import UserGuard from './permissions/user.guard';
+
 import { instanceToInstance } from 'class-transformer';
 
 import ValidationError from '@common/erros/ZodError';
@@ -28,6 +39,7 @@ import {
 } from '@modules/user/useCases';
 
 @ApiTags('Users')
+@ApiBearerAuth('Bearer')
 @Controller('users')
 class UserController {
   constructor(
@@ -75,6 +87,7 @@ class UserController {
     };
   }
 
+  @UseGuards(AuthGuard, UserGuard)
   @ApiOperation({ summary: 'Get user by ID' })
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
@@ -97,6 +110,7 @@ class UserController {
     return instanceToInstance(userRecord);
   }
 
+  @UseGuards(AuthGuard, UserGuard)
   @ApiOperation({ summary: 'Update user by ID' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
@@ -132,6 +146,7 @@ class UserController {
     });
   }
 
+  @UseGuards(AuthGuard, UserGuard)
   @ApiOperation({ summary: 'Delete user by ID' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({

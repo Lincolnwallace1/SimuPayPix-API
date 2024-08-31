@@ -54,7 +54,7 @@ class LoginService {
       });
     }
 
-    const token = this.jwtService.sign({ sub: user.id });
+    const token = this.jwtService.sign({ user: user.id });
 
     return { accessToken: token, expiresIn: this.jwtExpiresIn };
   }
