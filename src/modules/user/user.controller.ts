@@ -1,21 +1,24 @@
-import { Body, Controller, Post, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Post, HttpStatus, Get, Param } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { instanceToInstance } from 'class-transformer';
 
 import ValidationError from '@common/erros/ZodError';
-
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { ICreateUserDTO } from './dtos';
 
 import { CreateUserSchema } from './schemas';
 
-import { ICreateUserResponse } from './responses';
+import { ICreateUserResponse, IGetUserResponse } from './responses';
 
-import { CreateUserService } from '@modules/user/useCases';
+import { CreateUserService, GetUserService } from '@modules/user/useCases';
 
 @ApiTags('Users')
 @Controller('users')
 class UserController {
-  constructor(private readonly createUserService: CreateUserService) {}
+  constructor(
+    private readonly createUserService: CreateUserService,
+    private readonly getUserService: GetUserService,
+  ) {}
 
   @ApiOperation({ summary: 'Create a new user' })
   @ApiResponse({
@@ -52,6 +55,27 @@ class UserController {
     return {
       id: user.id,
     };
+  }
+
+  @ApiOperation({ summary: 'Get user by ID' })
+  @ApiResponse({
+    description: 'User Found',
+    type: IGetUserResponse,
+    status: HttpStatus.OK,
+  })
+  @ApiResponse({
+    description: 'User not found',
+    status: HttpStatus.NOT_FOUND,
+  })
+  @ApiResponse({
+    description: 'Unauthorized',
+    status: HttpStatus.UNAUTHORIZED,
+  })
+  @Get('/:user')
+  public async get(@Param('user') user: string): Promise<IGetUserResponse> {
+    const userRecord = await this.getUserService.execute({ id: Number(user) });
+
+    return instanceToInstance(userRecord);
   }
 }
 

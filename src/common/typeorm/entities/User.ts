@@ -21,9 +21,10 @@ class User {
   })
   email: string;
 
-  @Column({ name: 'fullname', type: 'character varying', length: 255 })
-  fullname: string;
+  @Column({ name: 'fullName', type: 'character varying', length: 255 })
+  fullName: string;
 
+  @Exclude()
   @Column({ name: 'password', type: 'character varying', length: 255 })
   password: string;
 

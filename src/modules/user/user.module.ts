@@ -7,12 +7,12 @@ import User from '@entities/User';
 
 import UserRepository from './repository/UserRepository';
 
-import { CreateUserService } from './useCases';
+import { CreateUserService, GetUserService } from './useCases';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
-  providers: [CreateUserService, UserRepository],
+  providers: [UserRepository, CreateUserService, GetUserService],
   exports: [UserRepository],
 })
 export class UserModule {}

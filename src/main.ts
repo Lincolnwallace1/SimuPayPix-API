@@ -15,6 +15,10 @@ class App {
 
     app.useGlobalFilters(new ExceptionMiddleware());
 
+    app.enableCors({
+      origin: true,
+    });
+
     const config = new DocumentBuilder()
       .setTitle('SimuPayPix - API')
       .setDescription('API para o projeto SimuPayPix')

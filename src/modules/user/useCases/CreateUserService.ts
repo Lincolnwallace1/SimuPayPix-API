@@ -33,24 +33,12 @@ class CreateUserService {
       });
     }
 
-    const user = await this.userRepository
-      .create({
-        email: data.email,
-        fullname: data.fullname,
-        password: await argon2.hash(data.password),
-        accountBalance: data.accountBalance,
-      })
-      .then((user) => {
-        return user;
-      })
-      .catch((error) => {
-        console.error(error);
-        throw new AppError({
-          name: 'User Not Created',
-          errorCode: 'user_not_created',
-          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-        });
-      });
+    const user = await this.userRepository.create({
+      email: data.email,
+      fullName: data.fullName,
+      password: await argon2.hash(data.password),
+      accountBalance: data.accountBalance,
+    });
 
     return user;
   }
