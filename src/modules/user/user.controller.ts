@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   HttpCode,
+  Delete,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { instanceToInstance } from 'class-transformer';
@@ -23,6 +24,7 @@ import {
   CreateUserService,
   GetUserService,
   UpdateUserService,
+  DeleteUserService,
 } from '@modules/user/useCases';
 
 @ApiTags('Users')
@@ -32,6 +34,7 @@ class UserController {
     private readonly createUserService: CreateUserService,
     private readonly getUserService: GetUserService,
     private readonly updateUserService: UpdateUserService,
+    private readonly deleteUserService: DeleteUserService,
   ) {}
 
   @ApiOperation({ summary: 'Create a new user' })
@@ -127,6 +130,25 @@ class UserController {
       user: Number(user),
       data: dataParsed,
     });
+  }
+
+  @ApiOperation({ summary: 'Delete user by ID' })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiResponse({
+    description: 'User Deleted',
+    status: HttpStatus.NO_CONTENT,
+  })
+  @ApiResponse({
+    description: 'User not found',
+    status: HttpStatus.NOT_FOUND,
+  })
+  @ApiResponse({
+    description: 'Unauthorized',
+    status: HttpStatus.UNAUTHORIZED,
+  })
+  @Delete('/:user')
+  public async delete(@Param('user') user: string): Promise<void> {
+    await this.deleteUserService.execute({ id: Number(user) });
   }
 }
 

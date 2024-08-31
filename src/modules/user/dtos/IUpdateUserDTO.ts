@@ -11,6 +11,8 @@ class IUpdateUserDTO {
 
   @ApiProperty({ example: 1000 })
   accountBalance?: number;
+
+  enabled?: boolean;
 }
 
 export default IUpdateUserDTO;

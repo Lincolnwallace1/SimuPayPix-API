@@ -11,6 +11,7 @@ import {
   CreateUserService,
   GetUserService,
   UpdateUserService,
+  DeleteUserService,
 } from './useCases';
 
 @Module({
@@ -21,6 +22,7 @@ import {
     CreateUserService,
     GetUserService,
     UpdateUserService,
+    DeleteUserService,
   ],
   exports: [UserRepository],
 })
