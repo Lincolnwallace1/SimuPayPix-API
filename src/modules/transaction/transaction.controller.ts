@@ -21,6 +21,8 @@ import {
 
 import AuthGuard from '@common/http/middlewares/AuthMiddleware/auth.guard';
 
+import TransactionGuard from './permissions/transaction.guard';
+
 import ValidationError from '@common/erros/ZodError';
 
 import {
@@ -69,6 +71,7 @@ class TransactionController {
     private readonly listTransactionService: ListTransactionService,
   ) {}
 
+  @UseGuards(AuthGuard, TransactionGuard)
   @ApiOperation({ summary: 'Create a new transaction' })
   @HttpCode(HttpStatus.CREATED)
   @ApiResponse({
@@ -101,6 +104,7 @@ class TransactionController {
     return transaction;
   }
 
+  @UseGuards(AuthGuard, TransactionGuard)
   @ApiOperation({ summary: 'Get a transaction' })
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
@@ -127,6 +131,7 @@ class TransactionController {
     return transaction;
   }
 
+  @UseGuards(AuthGuard, TransactionGuard)
   @ApiOperation({ summary: 'Update a transaction' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
@@ -162,6 +167,7 @@ class TransactionController {
     });
   }
 
+  @UseGuards(AuthGuard, TransactionGuard)
   @ApiOperation({ summary: 'Delete a transaction' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
@@ -183,7 +189,7 @@ class TransactionController {
     });
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, TransactionGuard)
   @ApiOperation({ summary: 'Confirm a transaction' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
@@ -221,7 +227,7 @@ class TransactionController {
     });
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, TransactionGuard)
   @ApiOperation({ summary: 'Refute a transaction' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({

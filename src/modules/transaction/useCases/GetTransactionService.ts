@@ -24,8 +24,6 @@ class GetTransactionService {
       ['paying_', 'receiving_'],
     );
 
-    console.log('transaction', transaction);
-
     if (!transaction) {
       throw new AppError({
         name: 'Transaction Not Found',
