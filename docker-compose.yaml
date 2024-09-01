@@ -1,0 +1,19 @@
+version: '2.2'
+
+services: 
+  simupaypix-api:
+    build: .
+    image: simupaypix-api
+    restart: unless-stopped
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    environment:
+      - API_PORT=${API_PORT}
+      - API_HOST=${API_HOST}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - AUTH_ACCESS_TOKEN_SECRET=${AUTH_ACCESS_TOKEN_SECRET}
+      - AUTH_ACCESS_TOKEN_EXP=${AUTH_ACCESS_TOKEN_EXP}

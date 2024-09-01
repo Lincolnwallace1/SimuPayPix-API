@@ -1,5 +1,6 @@
 import User from './User';
+import Transaction from './Transaction';
 
-const Entities = [User];
+const Entities = [User, Transaction];
 
 export default Entities;

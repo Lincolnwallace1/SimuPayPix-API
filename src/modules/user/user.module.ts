@@ -16,7 +16,6 @@ import {
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
-  controllers: [UserController],
   providers: [
     UserRepository,
     CreateUserService,
@@ -24,6 +23,7 @@ import {
     UpdateUserService,
     DeleteUserService,
   ],
+  controllers: [UserController],
   exports: [UserRepository],
 })
 export class UserModule {}
