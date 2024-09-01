@@ -52,7 +52,9 @@ class ConfirmTransactionService {
 
     if (
       !passwordMatch ||
-      Number(userRecord.accountBalance) < Number(transaction.valueTransaction)
+      Number(userRecord.accountBalance) <
+        Number(transaction.valueTransaction) ||
+      userRecord.id !== transaction.paying_.id
     ) {
       await this.transactionRepository.update(transaction.id, {
         status: 'NOT_AUTHORIZED',
