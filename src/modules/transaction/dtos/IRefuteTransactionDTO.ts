@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-class IConfirmTransactionDTO {
+class IRefuteTransactionDTO {
   @ApiProperty({ example: 'senha123' })
   password: string;
 
@@ -8,4 +8,4 @@ class IConfirmTransactionDTO {
   reversalReason: string;
 }
 
-export default IConfirmTransactionDTO;
+export default IRefuteTransactionDTO;

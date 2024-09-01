@@ -59,7 +59,6 @@ class CreateTransactionService {
       receiving: userReceiving.id,
       status: 'PENDING',
       type: data.type,
-      schedule: data.schedule,
     });
 
     return {

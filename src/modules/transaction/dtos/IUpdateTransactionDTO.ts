@@ -13,9 +13,6 @@ class IUpdateTransactionDTO {
     | 'REVERSED'
     | 'NOT_AUTHORIZED';
 
-  @ApiProperty({ example: '2024-08-31', nullable: true })
-  schedule?: Date | null;
-
   paying?: number;
 
   receiving?: number;

@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class TransactionEntitie1725155906459 implements MigrationInterface {
-  name = 'TransactionEntitie1725155906459';
+export class TransactionEntitie1725197678604 implements MigrationInterface {
+  name = 'TransactionEntitie1725197678604';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "transaction" ("id" SERIAL NOT NULL, "code" uuid NOT NULL, "valueTransaction" numeric(10,2) NOT NULL, "status" character varying(32) NOT NULL, "type" character varying(32) NOT NULL, "schedule" TIMESTAMP, "paying" integer, "receiving" integer, "reversalReason" character varying(1024), "sentAt" TIMESTAMP, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_24a02b002efb0eb554c2f7773d1" UNIQUE ("code"), CONSTRAINT "PK_89eadb93a89810556e1cbcd6ab9" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "transaction" ("id" SERIAL NOT NULL, "code" uuid NOT NULL, "valueTransaction" numeric(10,2) NOT NULL, "status" character varying(32) NOT NULL, "type" character varying(32) NOT NULL, "paying" integer, "receiving" integer, "reversalReason" character varying(1024), "sentAt" TIMESTAMP, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_24a02b002efb0eb554c2f7773d1" UNIQUE ("code"), CONSTRAINT "PK_89eadb93a89810556e1cbcd6ab9" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `ALTER TABLE "transaction" ADD CONSTRAINT "FK_70cf34bdd43e79c983905cf39c8" FOREIGN KEY ("paying") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,

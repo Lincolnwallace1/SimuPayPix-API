@@ -44,9 +44,6 @@ class TransactionResponse {
   })
   type: string;
 
-  @ApiProperty({ type: 'string', format: 'date-time' })
-  schedule: Date;
-
   @ApiProperty({ type: IUser })
   paying: IUser;
 

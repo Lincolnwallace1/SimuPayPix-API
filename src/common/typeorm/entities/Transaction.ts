@@ -36,9 +36,6 @@ class Transaction {
   @Column({ name: 'type', type: 'character varying', length: 32 })
   type: 'PAYMENT' | 'RECEIPT';
 
-  @Column({ name: 'schedule', type: 'timestamp', nullable: true })
-  schedule: Date | null;
-
   @Column({ name: 'paying', type: 'int', nullable: true })
   paying: number;
 

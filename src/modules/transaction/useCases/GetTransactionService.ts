@@ -38,7 +38,6 @@ class GetTransactionService {
       valueTransaction: Number(transaction.valueTransaction),
       status: transaction.status,
       type: transaction.type,
-      schedule: transaction.schedule,
       paying: {
         id: transaction.paying_.id,
         fullName: transaction.paying_.fullName,

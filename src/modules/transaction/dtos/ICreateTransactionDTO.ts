@@ -11,9 +11,6 @@ class ICreateTransactionDTO {
 
   status: 'PENDING' | 'COMPLETED' | 'CANCELLED' | 'REVERSED' | 'NOT_AUTHORIZED';
 
-  @ApiProperty({ example: '2024-08-31', nullable: true })
-  schedule?: Date | null;
-
   @ApiProperty({ example: 1 })
   paying: number;
 
