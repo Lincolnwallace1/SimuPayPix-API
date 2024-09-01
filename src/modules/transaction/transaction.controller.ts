@@ -59,7 +59,7 @@ import {
 
 @ApiTags('Transactions')
 @ApiBearerAuth('Bearer')
-@Controller('transaction')
+@Controller('transactions')
 class TransactionController {
   constructor(
     private readonly createTransactionService: CreateTransactionService,
