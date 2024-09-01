@@ -6,6 +6,7 @@ import TransactionRepository from '@modules/transaction/repository/TransactionRe
 
 interface IRequest {
   code: string;
+  user: number;
 }
 
 class DeleteTransactionService {
@@ -14,7 +15,7 @@ class DeleteTransactionService {
     private transactionRepository: TransactionRepository,
   ) {}
 
-  public async execute({ code }: IRequest): Promise<void> {
+  public async execute({ code, user }: IRequest): Promise<void> {
     const transaction = await this.transactionRepository.get({
       code,
       status: 'PENDING',
@@ -25,6 +26,17 @@ class DeleteTransactionService {
         name: 'Transaction Not Found',
         errorCode: 'transaction_not_found',
         statusCode: HttpStatus.NOT_FOUND,
+      });
+    }
+
+    if (
+      (transaction.type === 'RECEIPT' && transaction.receiving !== user) ||
+      (transaction.type === 'PAYMENT' && transaction.paying !== user)
+    ) {
+      throw new AppError({
+        name: 'Unauthorized',
+        errorCode: 'unauthorized',
+        statusCode: HttpStatus.UNAUTHORIZED,
       });
     }
 

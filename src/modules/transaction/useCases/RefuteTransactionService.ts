@@ -65,6 +65,8 @@ class RefuteTransactionService {
         status: 'NOT_AUTHORIZED',
         reversalReason: 'Insufficient Funds',
       });
+
+      return;
     }
 
     await this.userRepository.update(userRecord.id, {

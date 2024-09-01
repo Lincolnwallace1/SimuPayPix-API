@@ -59,7 +59,7 @@ import {
 
 @ApiTags('Transactions')
 @ApiBearerAuth('Bearer')
-@Controller('transaction')
+@Controller('transactions')
 class TransactionController {
   constructor(
     private readonly createTransactionService: CreateTransactionService,
@@ -183,8 +183,12 @@ class TransactionController {
     status: HttpStatus.NOT_FOUND,
   })
   @Delete('/:code')
-  public async deleteTransaction(@Param('code') code: string): Promise<void> {
+  public async deleteTransaction(
+    @Param('code') code: string,
+    @Req() req: Request,
+  ): Promise<void> {
     await this.deleteTransactionService.execute({
+      user: req['user'],
       code,
     });
   }
