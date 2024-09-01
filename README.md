@@ -111,7 +111,7 @@ AUTH_ACCESS_TOKEN_EXP=1200
 4. Certifique-se de ter o Docker e o Docker Compose instalados.
 5. Para criar a imagem e subir os containers, utilize os seguintes comandos:
 
-``shell
+```shell
 docker-compose build
 docker-compose up -d
 ```
