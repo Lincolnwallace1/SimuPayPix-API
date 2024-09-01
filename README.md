@@ -32,42 +32,92 @@
 $ yarn install
 ```
 
-## Running the app
+### Configuração do Ambiente Local
 
-```bash
-# development
-$ yarn run start
+Para configurar o ambiente corretamente, siga os passos abaixo:
 
-# watch mode
-$ yarn run start:dev
+1. Certifique-se de ter uma imagem Docker do PostgreSQL configurada.
+2. O banco de dados deve ser criado com o nome **simupaypix**.
+3. Crie um arquivo `.env` na raiz do seu projeto com as seguintes variáveis de ambiente:
 
-# production mode
-$ yarn run start:prod
+```shell
+###################
+# General config
+# V.01
+###################
+
+API_PORT=8080
+API_HOST=http://localhost:8080
+
+###################
+# Database config
+# V.01
+###################
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=simupaypix
+
+###################
+# Auth config
+# V.01
+###################
+
+AUTH_ACCESS_TOKEN_SECRET=mdasdaasmasp
+AUTH_ACCESS_TOKEN_EXP=1200
 ```
 
-## Test
+Em seguida rodar o comando `yarn start` em caso do uso de yarn ou `npm run` em caso de uso de npm.
 
-```bash
-# unit tests
-$ yarn run test
+## Configuração do Projeto em um Container Docker
 
-# e2e tests
-$ yarn run test:e2e
+Para rodar o projeto em um container Docker, siga os passos abaixo:
 
-# test coverage
-$ yarn run test:cov
+1. Certifique-se de ter uma imagem Docker do PostgreSQL configurada com o banco de dados **simupaypix**.
+2. Crie um arquivo `.env` na raiz do seu projeto com as seguintes variáveis de ambiente (igual ao ambiente local):
+
+```shell
+###################
+# General config
+# V.01
+###################
+
+API_PORT=8080
+API_HOST=http://localhost:8080
+
+###################
+# Database config
+# V.01
+###################
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=simupaypix
+
+###################
+# Auth config
+# V.01
+###################
+
+AUTH_ACCESS_TOKEN_SECRET=mdasdaasmasp
+AUTH_ACCESS_TOKEN_EXP=1200
+```
+ 
+3. Se o seu contêiner PostgreSQL estiver em uma rede Docker diferente, ajuste a variável `DB_HOST` para corresponder ao nome da rede onde o contêiner PostgreSQL está rodando.
+4. Certifique-se de ter o Docker e o Docker Compose instalados.
+5. Para criar a imagem e subir os containers, utilize os seguintes comandos:
+
+``shell
+docker-compose build
+docker-compose up -d
 ```
 
-## Support
+Depois acessar a "localhost:8080/docs" e terá a API rodando.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Abaixo está o modelo do banco de dados:
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+![Modelo de banco de dados](assets/Diagrama%20do%20banco%20de%20dados.png)
