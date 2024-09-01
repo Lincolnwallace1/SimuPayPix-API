@@ -58,8 +58,10 @@ class TransactionRepository {
       .createQueryBuilder('transaction')
       .leftJoinAndSelect('transaction.paying_', 'userPaying')
       .leftJoinAndSelect('transaction.receiving_', 'userReceiving')
-      .where('transaction.paying = :paying', { paying: data.user })
-      .orWhere('transaction.receiving = :receiving', { receiving: data.user })
+      .where('(transaction.paying = :user OR  transaction.receiving = :user)', {
+        user: data.user,
+      })
+
       .take(data.limit ?? 0)
       .skip(data.offset ?? 0);
 
